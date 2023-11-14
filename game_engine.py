@@ -1,7 +1,6 @@
 import components
 import random
 players = {
-
     "user": None,
     "ai": None
 }
@@ -25,13 +24,11 @@ def generate_attack() -> tuple:
 
 #Todo. Rewrite whole thing into a for loop with board and ships initalized inside the dictionary. 
 def ai_opponent_game_loop():
+    finish = False
     print("Welcome to Battleships")
-    user_board, user_ships = components.initialise_board(), components.create_battleships()
-    ai_board, ai_ships = components.initialise_board(), components.create_battleships()
-    players["user"] = (user_board, user_ships)
-    players["ai"] = (ai_board, ai_ships)
-    for data in players.values():
-        components.place_battleships(data[0], data[1])
+    for player in players:
+        players[player] = (components.initialise_board(), components.create_battleships())
+        components.place_battleships(players[player][0], players[player][1])
     while True:
         for player, data in players.items():
             if len(data[1]) == 0:
@@ -43,15 +40,14 @@ def ai_opponent_game_loop():
         print("The user will now attack")
         coordinates = cli_coordinates_input()
         #This line could be hard to follow. Basically setting location to the AI's board at the coordinates provided
-        #I needed to specify the variable as _ai otherwise I'd be updating the users board at that position on the second run through
-        location_ai = ai_board[coordinates[0]][coordinates[1]]
-        if attack(location_ai, ai_ships) == True:
-            ai_board[coordinates[0]][coordinates[1]] = None
+        location = players["ai"][0][coordinates[0]][coordinates[1]]
+        if attack(location, players["ai"][1]) == True:
+            players["ai"][0][coordinates[0]][coordinates[1]] = None
             print("Hit")
-            for name, count in ai_ships.items():
+            for name, count in players["ai"][1].items():
                 if count == 0:
-                    print(name, "has been sunk")
-                    ai_ships.pop(name)
+                    print("AI's", name, "has been sunk")
+                    players["ai"][1].pop(name)
                     break
         else: 
             print("Miss")
@@ -59,14 +55,14 @@ def ai_opponent_game_loop():
         print("The ai will now attack")
         coordinates = generate_attack()
         #Same as before, but for the User's board
-        location = user_board[coordinates[0]][coordinates[1]]
-        if attack(location, user_ships) == True:
-            user_board[coordinates[0]][coordinates[1]] = None
+        location = players["user"][0][coordinates[0]][coordinates[1]]
+        if attack(location, players["user"][1]) == True:
+            players["user"][0][coordinates[0]][coordinates[1]] = None
             print("Hit")
-            for name, count in user_ships.items():
+            for name, count in players["user"][1].items():
                 if count == 0:
-                    print(name, "has been sunk")
-                    user_ships.pop(name)
+                    print("User's", name, "has been sunk")
+                    players["user"][1].pop(name)
                     break
         else:
             print("Miss")
@@ -89,7 +85,7 @@ def simple_game_loop():
             print("Hit")
             for name, count in ships.items():
                 if count == 0:
-                    print(name, "has been sunk")
+                    print("Opponents", name, "has been sunk")
                     ships.pop(name)
                     break  
         else:

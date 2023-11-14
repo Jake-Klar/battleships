@@ -20,13 +20,15 @@ def create_battleships(filename=r'\battleships.txt') -> dict:
 def place_battleships(board: list, ships: dict, algorithm='simple') -> list:
     if algorithm == 'simple':
         k = 0
-        for i in ships:
-            for j in range(int(ships[i])):
-                board[k][j] = i
+        for ship in ships:
+            for j in range(int(ships[ship])):
+                board[k][j] = ship
             k += 1
+        #This return value is redundant in the case of ai_opponent_game_loop
         return board
 
 if __name__ == '__main__':
+    #Change this to simple_game_loop to test my singplayer version!
     game_engine.ai_opponent_game_loop()
     
 
