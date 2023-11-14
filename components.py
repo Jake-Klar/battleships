@@ -27,6 +27,6 @@ def place_battleships(board: list, ships: dict, algorithm='simple') -> list:
         return board
 
 if __name__ == '__main__':
-    game_engine.simple_game_loop()
+    game_engine.ai_opponent_game_loop()
     
 
