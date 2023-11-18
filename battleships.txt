@@ -1,5 +1,5 @@
-shp1 1
-shp2 2
-shp3 3
-shp4 4
-shp5 5
+Airc 5
+Batt 4
+Crui 3
+Subm 3
+Dest 2
