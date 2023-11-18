@@ -26,9 +26,12 @@ def generate_attack() -> tuple:
 def ai_opponent_game_loop():
     finish = False
     print("Welcome to Battleships")
-    for player in players:
-        players[player] = (components.initialise_board(), components.create_battleships())
-        components.place_battleships(players[player][0], players[player][1])
+    players["user"] = components.initialise_board(), components.create_battleships() 
+    components.place_battleships(players["user"][0], players["user"][1])
+    players["ai"] = components.initialise_board(), components.create_battleships(), 'random'
+    components.place_battleships(players["ai"][0], players["ai"][1], players["ai"][2])
+    for i in players["ai"][0]:
+        print(i)
     while True:
         for player, data in players.items():
             if len(data[1]) == 0:
@@ -70,8 +73,7 @@ def ai_opponent_game_loop():
 
 def simple_game_loop():
     print("Welcome to Battleships")
-    board = components.initialise_board()
-    ships = components.create_battleships()
+    board, ships = components.initialise_board(), components.create_battleships()
     components.place_battleships(board, ships)
     while True:
         if len(ships) == 0:
