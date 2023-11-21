@@ -1,5 +1,6 @@
 import os
 import game_engine
+import mp_game_engine
 import random
 import json
 #Creates an empty board state taking an integer as an argument for the size of the board
@@ -58,6 +59,8 @@ def place_battleships(board: list, ships: dict, algorithm='simple') -> list:
     elif algorithm == 'custom':
         path = os.getcwd() + r"\battleships" + r"\placement.json"
         with open(path, 'r') as f:
+            """Change it if you wish, but it's currently set to saying HI which is cool. If you do change it, the ships are built upwards from start if orientation is vertical
+            and left from the start if the orientation is horizontal"""
             json_file = json.load(f)
         placements = json_file
         for ship in placements:
@@ -86,5 +89,5 @@ def place_battleships(board: list, ships: dict, algorithm='simple') -> list:
 
 if __name__ == '__main__':
     #Change this to simple_game_loop to test my singplayer version!
-    game_engine.ai_opponent_game_loop()
+    mp_game_engine.ai_opponent_game_loop()
     
