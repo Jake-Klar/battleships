@@ -27,9 +27,9 @@ def ai_opponent_game_loop():
     finish = False
     print("Welcome to Battleships")
     players["user"] = components.initialise_board(), components.create_battleships() , 'custom'
-    components.place_battleships(players["user"][0], players["user"][1], players["user"][2])
+    components.place_battleships(players["user"][0], players["user"][1], None, players["user"][2])
     players["ai"] = components.initialise_board(), components.create_battleships(), 'random'
-    components.place_battleships(players["ai"][0], players["ai"][1], players["ai"][2])
+    components.place_battleships(players["ai"][0], players["ai"][1], None, players["ai"][2])
     while True:
         for player, data in players.items():
             if len(data[1]) == 0:
