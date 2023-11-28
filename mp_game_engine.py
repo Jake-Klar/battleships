@@ -1,8 +1,8 @@
 import components
 import random
 players = {
-    "user": None,
-    "ai": None
+    "user": (None, None, 'custom'),
+    "ai": (None, None, 'random')
 }
 
 def attack(location: str, ships: dict) -> bool:
@@ -15,22 +15,25 @@ def attack(location: str, ships: dict) -> bool:
 def cli_coordinates_input() -> tuple:
     x = int(input("Please enter a x co-ordinate "))
     y = int(input("Please enter a y co-ordinate "))
-    return (x, y)
+    #Flipped due to the formatting nature of a list of lists. The first index is the row (y axis) and the second the column (x axis)
+    return (y, x)
 
 def generate_attack() -> tuple:
     x = random.randint(0, 9)
     y = random.randint(0, 9)
-    return (x, y)
-
-#Todo. Rewrite whole thing into a for loop with board and ships initalized inside the dictionary. 
+    #No real need for these to be flipped as they weren't picked with intention, but like... come on they need to be
+    return (y, x)
+ 
 def ai_opponent_game_loop():
     finish = False
     print("Welcome to Battleships")
+    #Initalizing player components
     players["user"] = components.initialise_board(), components.create_battleships() , 'custom'
     components.place_battleships(players["user"][0], players["user"][1], None, players["user"][2])
     players["ai"] = components.initialise_board(), components.create_battleships(), 'random'
     components.place_battleships(players["ai"][0], players["ai"][1], None, players["ai"][2])
     while True:
+        #Checks to see if either player has had all their ships sunk, ends game as a result
         for player, data in players.items():
             if len(data[1]) == 0:
                 print(player, " has lost")

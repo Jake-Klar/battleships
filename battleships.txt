@@ -1,5 +1,5 @@
-Airc 5
-Batt 4
-Crui 3
-Subm 3
-Dest 2
+Aircraft_Carrier:5
+Battleship:4
+Cruiser:3
+Submarine:3
+Destroyer:2

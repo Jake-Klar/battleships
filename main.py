@@ -31,7 +31,7 @@ def attack():
     if request.args:
         x = int(request.args.get('x'))
         y = int(request.args.get('y'))
-        #These are flipped to interact more nicely with my previous code where as it is a list of lists, the first index refers to the row and not the column
+        #Flipped due to the formatting nature of a list of lists. The first index is the row (y axis) and the second the column (x axis)
         location = ai_board[y][x]
         if mp_game_engine.attack(location, ai_ships) == True:
             for name, count in ai_ships.items():

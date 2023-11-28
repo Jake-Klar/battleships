@@ -1,8 +1,4 @@
 import components
-players = {
-    "user": None,
-    "ai": None
-}
 
 def attack(location: str, ships: dict) -> bool:
     if location == None:
@@ -14,7 +10,8 @@ def attack(location: str, ships: dict) -> bool:
 def cli_coordinates_input() -> tuple:
     x = int(input("Please enter a x co-ordinate "))
     y = int(input("Please enter a y co-ordinate "))
-    return (x, y)
+    #Flipped due to the formatting nature of a list of lists. The first index is the row (y axis) and the second the column (x axis)
+    return (y, x)
 
 def simple_game_loop():
     print("Welcome to Battleships")
