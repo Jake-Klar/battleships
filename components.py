@@ -14,13 +14,12 @@ def create_battleships(filename=r'\battleships.txt') -> dict:
     path = os.getcwd() + filename
     f = open(path, 'r')
     lines = f.readlines()
-    ships = {}
+    battleships = {}
     for ship in lines:
-        ships[ship[0:4]] = int(ship.partition(":")[2])
-    return ships
+        battleships[ship[0:4]] = int(ship.partition(":")[2])
+    return battleships
 
-#Web_data is only used for when the game is using FLASk and it's to give the algorithm the users chosen placement data
-def place_battleships(board: list, ships: dict, web_data: dict, algorithm='simple') -> list:
+def place_battleships(board: list, ships: dict, algorithm='simple') -> list:
     if algorithm == 'simple':
         k = 0
         for ship in ships:
@@ -37,7 +36,7 @@ def place_battleships(board: list, ships: dict, web_data: dict, algorithm='simpl
                 orientation = "vertical"
             while not placed:
                 #Tries to place a ship in its randomly chosen orientation until it finds a suitable location and then moves onto the next ship
-                start_loc = (random.randint(0, 9), random.randint(0, 9))
+                start_loc = (random.randint(0, len(board) - 1), random.randint(0, len(board) - 1))
                 valid_placement = True  
                 if orientation == "horizontal":
                     for j in range(int(ships[ship])):
@@ -69,13 +68,13 @@ def place_battleships(board: list, ships: dict, web_data: dict, algorithm='simpl
                 #Tests for the orientation given if the ship is either a) Out of bounds or b) Overlapping with another ship
                 if orientation == 'h':
                     for j in range(int(ships[ship[0:4]])):
-                        if start_loc[1] + j > 9 or board[start_loc[0]][start_loc[1] + j] is not None:
-                            print("Invalid placements set. Please update to avoid going out of bounds or overlapping ships")
+                        if start_loc[1] + j > len(board) - 1 or board[start_loc[0]][start_loc[1] + j] is not None:
+                            print("Invalid placements set in your config file. Please update to avoid going out of bounds or overlapping ships")
                             exit(1)
                 else:
                     for j in range(int(ships[ship[0:4]])):
-                        if start_loc[0] + j > 9 or board[start_loc[0] + j][start_loc[1]] is not None:
-                            print("Invalid placements set. Please update to avoid going out of bounds or overlapping ships")
+                        if start_loc[0] + j > len(board) - 1 or board[start_loc[0] + j][start_loc[1]] is not None:
+                            print("Invalid placements set in your config file. Please update to avoid going out of bounds or overlapping ships")
                             exit(1)
                 for j in range(int(ships[ship[0:4]])):
                     if orientation == 'h':
@@ -83,16 +82,17 @@ def place_battleships(board: list, ships: dict, web_data: dict, algorithm='simpl
                     else:
                         board[start_loc[0] + j][start_loc[1]] = ship[0:4]
             return board
-    elif algorithm == 'web':
-        for ship in web_data.keys():
-            orientation = web_data[ship][2]
-            #Similar to the custom placement, but we don't need to do checks on ship placement as the frontend handles it for us
-            for i in range((int(ships[ship]))):
-                if orientation == 'h':
-                    board[int(web_data[ship][1])][int(web_data[ship][0]) + i] = ship
-                else:
-                     board[int(web_data[ship][1]) + i][int(web_data[ship][0])] = ship 
-        return board
+    
+def place_battleships_flask(board: list, ships: dict, web_data: dict) -> list:
+    for ship in web_data.keys():
+        orientation = web_data[ship][2]
+        #Similar to the custom placement, but we don't need to do checks on ship placement as the frontend handles it for us
+        for i in range((int(ships[ship]))):
+            if orientation == 'h':
+                board[int(web_data[ship][1])][int(web_data[ship][0]) + i] = ship
+            else:
+                board[int(web_data[ship][1]) + i][int(web_data[ship][0])] = ship 
+    return board
     
 if __name__ == '__main__':
     #Change this to simple_game_loop to test my singplayer version!
