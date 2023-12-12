@@ -4,6 +4,7 @@ import components
 import mp_game_engine
 #Will store all previous guesses to stop the AI from selecting the same co ordinated for no reason
 previous_ai_guesses_flask = []
+previous_user_guesses_flask = []
 ai_board = []
 ai_ships = {}
 player_board = []
@@ -37,8 +38,12 @@ def placement_interface():
 def attack() -> dict:
     """Handles attacks for both players Ends the gmae when one's navy is destroyed"""
     if request.args:
-        x = int(request.args.get('x'))
-        y = int(request.args.get('y'))
+        while True:
+            x = int(request.args.get('x'))
+            y = int(request.args.get('y'))
+            if (y, x) not in previous_user_guesses_flask:
+                previous_user_guesses_flask.append((y, x))
+                break
         #Flipped due to the formatting nature of a list of lists.
         if mp_game_engine.attack((y, x), ai_board, ai_ships) is True:
             for name, count in ai_ships.items():

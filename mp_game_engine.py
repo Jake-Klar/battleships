@@ -79,7 +79,7 @@ def generate_attack() -> tuple:
     while True:
         x = random.randint(0, SIZE - 1)
         y = random.randint(0, SIZE - 1)
-        if not any ((y, x) == guess for guess in previous_ai_guesses):
+        if (y, x) not in previous_ai_guesses:
             return (y, x)
 
 #As I can't alter generate_attack to take different arguments per the project specification
