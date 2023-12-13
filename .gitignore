@@ -1,0 +1,4 @@
+# VS Files
+__pycache__/
+.vscode/
+battleships/log.txt
