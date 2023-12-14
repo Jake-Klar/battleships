@@ -4,5 +4,9 @@ __pycache__/
 battleships/log.txt
 .pytest_cache/
 log.txt
-battleships/__pycache__
+battleships/__pycache__/
 battleships/test_report.txt
+test_report.txt
+.pytest_cache
+battleships/tests/__pycache__/
+battleships/.vscode/
