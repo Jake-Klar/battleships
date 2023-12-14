@@ -1,14 +1,24 @@
-from setuptools import setup, find_packages
+import setuptools
 
-setup(
-    name='Battleships',
+with open("README.md", 'r') as f:
+    long_description = f.read()
+
+setuptools.setup(
+    name='battleships-pkg-klar',
     version='1.0.0',
-    description='The classic Battleship game implemented in Python. Singleplayer and multiplayer as well as option GUI version',
     author='Jake Klar',
-    license='MIT',
+    author_email='jk733@exeter.ac.uk',
+    description='The classic Battleship game implemented in Python. Singleplayer and multiplayer as well as option GUI version',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     url='https://github.com/imferolla/battleships',
-    packages=find_packages(),
+    packages=setuptools.find_packages(),
     install_requires=[
         'Flask'
-    ]
+    ],
+    classifiers=[
+        'Programming Lnaguage :: Python :: 3',
+        'License :: MIT License',
+        'Operating System :: OS Independent',
+    ],
 )

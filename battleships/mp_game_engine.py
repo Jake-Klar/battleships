@@ -23,10 +23,18 @@ try:
             logging.info('Size imported as ' + str(SIZE))
         if 'path' in line:
             FILE = line[5:]
+        if 'algorithm' in line:
+            ALGORITHM = line[10:].strip('\n')
+            logging.info('Algorithm imported as ' + ALGORITHM)
 except FileNotFoundError:
     logging.warning('Was unable to find config file. Continuing with default values (size=10)')
     SIZE = 10
     FILE = 'battleships.txt'
+except ValueError:
+    logging.warning('Improperly configured config file. Continuing with default values')
+    print('Config file missing data. Game will continue with default values')
+    SIZE=10
+    FILE='battleships.txt'
 
 players = {
     "user": (None, None),
@@ -96,18 +104,20 @@ def generate_attack_flask(previous_ai_guesses_flask) -> tuple:
         if not any ((y, x) == guess for guess in previous_ai_guesses_flask):
             return (y, x)
 
-def ai_opponent_game_loop():
+def ai_opponent_game_loop() -> None:
     """Game logic that handles user and AI attacks until either's navy has been destroyed"""
     print("Welcome to Battleships Multiplayer")
     #Initalizing player components
     try:
         players["user"] = components.initialise_board(SIZE), components.create_battleships(FILE)
         players["ai"] = components.initialise_board(SIZE), components.create_battleships(FILE)
+        components.place_battleships(players["user"][0], players["user"][1], ALGORITHM)
+        components.place_battleships(players["ai"][0], players["ai"][1], 'random')
     except NameError:
         players["user"] = components.initialise_board(), components.create_battleships()
         players["ai"] = components.initialise_board(), components.create_battleships()
-    components.place_battleships(players["user"][0], players["user"][1], 'custom')
-    components.place_battleships(players["ai"][0], players["ai"][1], 'random')
+        components.place_battleships(players["user"][0], players["user"][1], 'custom')
+        components.place_battleships(players["ai"][0], players["ai"][1], 'random')
     while True:
         #Checks to see if either player has had all their ships sunk, ends game as a result
         for player, data in players.items():

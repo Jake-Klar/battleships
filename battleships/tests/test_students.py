@@ -396,8 +396,8 @@ def test_attack_exists():
         main_module = importlib.import_module('main')
         assert hasattr(main_module, 'attack'), "attack function does not exist"
     except AssertionError:
-        testReport.add_message("attack function does not exist in your solution.")
-        pytest.fail("attack function does not exist")
+        testReport.add_message("process_attack function does not exist in your solution.")
+        pytest.fail("process_attack function does not exist")
 
 
 @pytest.mark.depends(on=["test_main_module_exists"])

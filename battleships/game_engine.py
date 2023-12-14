@@ -16,10 +16,20 @@ try:
             logging.info('Size imported as ' + str(SIZE))
         if 'path' in line:
             FILE = line[5:]
+            logging.info('File imported as ' + FILE)
+        if 'algorithm' in line:
+            ALGORITHM = line[10:].strip('\n')
+            logging.info('Algorithm imported as ' + ALGORITHM)
 except FileNotFoundError:
-    logging.warning('Was unable to find config file. Continuing with default values (size=10)')
-    SIZE = 10
-    FILE = 'battleships.txt'
+    logging.warning('Was unable to find config file. Continuing with default values')
+    SIZE=10
+    FILE='battleships.txt'
+except ValueError:
+    logging.warning('Improperly configured config file. Continuing with default values')
+    print('Config file missing data. Game will continue with default values')
+    SIZE=10
+    FILE='battleships.txt'
+
 
 previous_user_guesses = []
 
@@ -66,15 +76,16 @@ def cli_coordinates_input() -> tuple:
     #Flipped due to the formatting nature of a list of lists
     return (y, x)
 
-def simple_game_loop():
+def simple_game_loop() -> None:
     """Game logic that prompts user to attack until the enemy navy is destroyed"""
     print("Welcome to Battleships Singleplayer")
     #Initializing player components
     try:
         board, ships = components.initialise_board(SIZE), components.create_battleships(FILE)
+        components.place_battleships(board, ships, ALGORITHM)
     except NameError:
         board, ships = components.initialise_board(), components.create_battleships()
-    components.place_battleships(board, ships, "simple")
+        components.place_battleships(board, ships)
     while True:
         if len(ships) == 0:
             print("Game over")

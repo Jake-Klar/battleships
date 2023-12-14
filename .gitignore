@@ -2,3 +2,7 @@
 __pycache__/
 .vscode/
 battleships/log.txt
+.pytest_cache/
+log.txt
+battleships/__pycache__
+battleships/test_report.txt
