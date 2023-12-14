@@ -5,7 +5,7 @@ with open("README.md", 'r') as f:
 
 setuptools.setup(
     name='battleships-pkg-klar',
-    version='1.0.2',
+    version='1.0.0',
     author='Jake Klar',
     author_email='jk733@exeter.ac.uk',
     description='The classic Battleship game implemented in Python. Singleplayer and multiplayer as well as option GUI version',

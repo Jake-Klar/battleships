@@ -4,7 +4,6 @@
 ## Introduction
 A python implementation of the classic board game. Includes both a singleplayer and multiplayer (vs AI) CLI mode as well as a GUI mode using flask (multiplayer vs AI only). Included are also a range of configuration files that allow you to customize your gameplay experience as well as a few functionality tests.
 
-
 ## Prerequisites
 Python 3.11.4
 
@@ -30,6 +29,6 @@ The tests are designed to be ran in VSCode. During workshops issues arose with t
 ## Details
 Author: Jake Klar
 
-License: See included file
+License: MIT License (See LICENSE.MD)
 
 Github repository: https://github.com/imferolla/battleships
