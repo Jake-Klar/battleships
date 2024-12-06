@@ -19,7 +19,7 @@ Install setuptools with pip
 Not necessary to the grader of this project! You can install this project from github. In git bash use
 
 ```bash
-  git clone https://github.com/imferolla/battleships.git
+  git clone https://github.com/jake-klar/battleships.git
 ```
 
 ## Getting Started
@@ -30,4 +30,4 @@ Author: Jake Klar
 
 License: MIT License (See LICENSE.MD)
 
-Github repository: https://github.com/imferolla/battleships
+Github repository: https://github.com/jake-klar/battleships
